@@ -1,4 +1,5 @@
 #include"MiniEngine.h"
+#include<iostream>
 
 
 class SandBox : public MG::Application
@@ -16,5 +17,6 @@ public:
 
 MG::Application* MG::CreateApplication()
 {
+	std::cout << "Welcome to Mini Engine\n";
 	return new SandBox();
 }
