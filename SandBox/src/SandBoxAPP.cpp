@@ -14,9 +14,7 @@ public:
 	}
 };
 
-int main()
+MG::Application* MG::CreateApplication()
 {
-	SandBox* sanbox = new SandBox();
-	sanbox->Run();
-	delete sanbox;
+	return new SandBox();
 }

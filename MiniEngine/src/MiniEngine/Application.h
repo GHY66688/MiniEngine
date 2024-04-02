@@ -12,6 +12,9 @@ namespace MG {
 		void Run();
 	};
 
+	//To be defined in CLIENT
+	Application* CreateApplication();
+
 }	//end MG
 
 
