@@ -16,6 +16,6 @@ public:
 
 MG::Application* MG::CreateApplication()
 {
-	std::cout << "Welcome to Mini Engine\n";
+	//std::cout << "Welcome to Mini Engine\n";
 	return new SandBox();
 }
