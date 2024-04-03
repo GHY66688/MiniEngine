@@ -10,6 +10,13 @@ workspace "MiniEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "MiniEngine/vendor/GLFW/include"
+
+include "MiniEngine/vendor/GLFW"
+
 project "MiniEngine"
 	location "MiniEngine"
 	kind "SharedLib"
@@ -29,8 +36,15 @@ project "MiniEngine"
 
 	includedirs
 	{
+		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/src"
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

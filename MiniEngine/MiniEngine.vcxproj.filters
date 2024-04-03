@@ -35,6 +35,10 @@
     <ClInclude Include="src\MiniEngine\Log.h">
       <Filter>MiniEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\MiniEngine\Window.h">
+      <Filter>MiniEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MGpch.cpp" />
@@ -44,5 +48,6 @@
     <ClCompile Include="src\MiniEngine\Log.cpp">
       <Filter>MiniEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
 </Project>

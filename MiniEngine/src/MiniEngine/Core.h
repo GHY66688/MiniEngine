@@ -10,4 +10,15 @@
 	#error MiniEngine only support Windows!
 #endif // MG_PLATFORM_WINDOWS
 
+#ifdef MG_ENABLE_ASSERTS
+	#define MG_CLIENT_ASSERT(x, ...) { if(!(x)) { MG_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define MG_CORE_ASSERT(x, ...) { if(!(x)) { MG_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#else
+	#define MG_CLIENT_ASSERT(x, ...)
+	#define MG_CORE_ASSERT(x, ...)
+#endif // MG_ENABLE_ASSERTS
+
+
+
+
 #define BIT(x) (1 << x)

@@ -7,15 +7,16 @@
 namespace MG {
 	Application::Application()
 	{
+		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 	Application::~Application()
 	{
 	}
 	void Application::Run()
 	{
-		WindowResizeEvent e(1280, 720);
-		MG_CLIENT_TRACE(e);
-
-		while (true);
+		while (m_Runing)
+		{
+			m_Window->OnUpdate();
+		}
 	}
 }	//end MG
