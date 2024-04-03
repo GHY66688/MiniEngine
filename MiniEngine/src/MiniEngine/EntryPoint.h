@@ -7,6 +7,11 @@ extern MG::Application* MG::CreateApplication();
 
 int main(int argc, char** argv)
 {
+	MG::Log::Init();
+	
+	MG_CORE_WARN("Initialized Log!");
+	MG_CLIENT_TRACE("Hello");
+
 	auto app = MG::CreateApplication();
 	app->Run();
 	delete app;

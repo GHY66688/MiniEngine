@@ -1,4 +1,6 @@
 #include "Application.h"
+#include"Events/ApplicationEvent.h"
+#include"Log.h"
 
 namespace MG {
 	Application::Application()
@@ -9,6 +11,9 @@ namespace MG {
 	}
 	void Application::Run()
 	{
+		WindowResizeEvent e(1280, 720);
+		//MG_TRACE(e);
+
 		while (true);
 	}
 }	//end MG

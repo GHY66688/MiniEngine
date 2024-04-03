@@ -9,3 +9,5 @@
 #else
 	#error MiniEngine only support Windows!
 #endif // MG_PLATFORM_WINDOWS
+
+#define BIT(x) (1 << x)

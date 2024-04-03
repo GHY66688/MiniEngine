@@ -27,9 +27,27 @@
     <ClInclude Include="src\MiniEngine\EntryPoint.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\MiniEngine\Events\Event.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\Events\MouseEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\Events\KeyEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\Log.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MiniEngine\Application.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniEngine\Events\ApplicationEvent.h">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniEngine\Log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
