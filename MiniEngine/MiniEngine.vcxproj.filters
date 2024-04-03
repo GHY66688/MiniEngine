@@ -9,6 +9,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\MGpch.h" />
     <ClInclude Include="src\MiniEngine.h" />
     <ClInclude Include="src\MiniEngine\Application.h">
       <Filter>MiniEngine</Filter>
@@ -36,6 +37,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\MGpch.cpp" />
     <ClCompile Include="src\MiniEngine\Application.cpp">
       <Filter>MiniEngine</Filter>
     </ClCompile>

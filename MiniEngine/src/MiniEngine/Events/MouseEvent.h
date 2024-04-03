@@ -3,7 +3,6 @@
 
 #include"Event.h"
 
-#include<sstream>
 
 namespace MG {
 
@@ -21,6 +20,7 @@ namespace MG {
 			ss << "MouseMovedEvent: " << m_MouseX << ", " << m_MouseY;
 			return ss.str();
 		}
+
 
 		EVENT_CLASS_TYPE(MouseMoved)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)

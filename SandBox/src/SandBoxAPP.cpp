@@ -1,3 +1,5 @@
+#include"MGpch.h"
+
 #include"MiniEngine.h"
 #include<iostream>
 

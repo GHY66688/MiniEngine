@@ -1,10 +1,8 @@
 #pragma once
 
-#include"../Core.h"
+#include "../Core.h"
 
-//优化进入预编译头，随着引擎的不断扩充，会产生极大的集成麻烦
-#include<string>
-#include<functional>
+
 
 
 
@@ -68,6 +66,7 @@ namespace MG {
 	public:
 		EventDispatcher(Event& event) : m_Event(event) {}
 
+		//通过调用Dispatch函数来判断某事件的类型
 		template<typename T>
 		bool Dispatch(EventFn<T> func)
 		{
@@ -84,7 +83,7 @@ namespace MG {
 	};
 
 
-	inline std::ostream& operator<<(std::ostream& os, Event& e)
+	inline std::ostream& operator<<(std::ostream& os, const Event& e)
 	{
 		return os << e.ToString();
 	}
