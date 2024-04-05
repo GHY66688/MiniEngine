@@ -40,6 +40,7 @@ namespace MG {
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 
+		//在不同平台上实现以下函数
 		static Window* Create(const WindowProps& props = WindowProps());
 
 	};

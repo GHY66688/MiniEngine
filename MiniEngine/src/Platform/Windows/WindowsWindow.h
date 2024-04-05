@@ -13,6 +13,7 @@ namespace MG {
 		virtual ~WindowsWindow();
 
 		void OnUpdate() override;
+
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
 

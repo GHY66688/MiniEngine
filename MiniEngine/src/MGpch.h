@@ -13,6 +13,8 @@
 #include<unordered_map>
 #include<unordered_set>
 
+#include"MiniEngine/Log.h"
+
 
 #ifdef MG_PLATFORM_WINDOWS
 	#include<Windows.h>

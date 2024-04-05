@@ -5,6 +5,10 @@ bin/
 
 bin-int/
 
+MiniEngine/vendor/GLFW/bin/
+
+MiniEngine/vendor/GLFW/bin-int/
+
 
 #Files
 *.user

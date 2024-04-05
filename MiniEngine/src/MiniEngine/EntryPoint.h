@@ -9,8 +9,11 @@ int main(int argc, char** argv)
 {
 	MG::Log::Init();
 	
-	MG_CORE_WARN("Initialized Log!");
-	MG_CLIENT_TRACE("Hello");
+	std::cout << "test1\n";
+
+	//MG_CLIENT_TRACE("Initialized Log!");
+
+	std::cout << "finish\n";
 
 	auto app = MG::CreateApplication();
 	app->Run();
