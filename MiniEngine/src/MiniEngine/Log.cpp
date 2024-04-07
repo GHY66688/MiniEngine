@@ -15,7 +15,7 @@ namespace MG {
 		//设定Log样式，指定颜色，时间戳，core/client，内容
 		spdlog::set_pattern("%^[%T] %n: %v%$");
 
-		//设置设备前缀
+		//设置设备前缀，即输出时会先输出设置好的前缀然后加入:，最后才是想要输出的内容
 		s_CoreLogger = spdlog::stdout_color_mt("MiniEngine");
 		s_CoreLogger->set_level(spdlog::level::trace);
 

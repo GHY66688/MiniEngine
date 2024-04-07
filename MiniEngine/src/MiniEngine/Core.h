@@ -1,5 +1,6 @@
 #pragma once
 
+//设置平台
 #ifdef MG_PLATFORM_WINDOWS
 	#ifdef MG_BUILD_DLL
 		#define MG_API __declspec(dllexport)
@@ -10,6 +11,9 @@
 	#error MiniEngine only support Windows!
 #endif // MG_PLATFORM_WINDOWS
 
+
+
+//debug模式设置
 #ifdef MG_ENABLE_ASSERTS
 	#define MG_CLIENT_ASSERT(x, ...) { if(!(x)) { MG_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define MG_CORE_ASSERT(x, ...) { if(!(x)) { MG_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }

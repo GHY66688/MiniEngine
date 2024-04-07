@@ -77,6 +77,7 @@ namespace MG {
 		//Set GLFW callback
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 			{
+				//将glfwGetWindowUserPointer返回的void*指针解释为WindowData*并在其地址上进行更改
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				data.Width = width;
 				data.Height = height;

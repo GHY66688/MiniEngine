@@ -29,16 +29,17 @@ namespace MG {
 	}
 
 
-	//使用EventDispatch将Event转换为指定的事件类型
+	//执行事件输出
 	void Application::OnEvent(Event& e)
 	{
+		//如果事件类型为关闭窗口，则执行OnWindowClose
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
 		MG_CORE_INFO("{0}", e);
 	}
 
-
+	//关闭窗口
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Runing = false;

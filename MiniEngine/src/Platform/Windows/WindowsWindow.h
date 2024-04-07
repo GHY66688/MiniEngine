@@ -17,7 +17,10 @@ namespace MG {
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
 
+		//将OnEvent函数进行SetEventCallback,会自动调用OnEvent
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
+
+
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 
@@ -33,6 +36,7 @@ namespace MG {
 			unsigned int Width, Height;
 			bool VSync;
 
+			//EventCallbackFn = std::function<void(Event&)> 会调用参数为Event&,返回值为void的函数
 			EventCallbackFn EventCallback;
 		};
 
