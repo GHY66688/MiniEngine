@@ -13,6 +13,11 @@
 
 
 
+#ifdef MG_DEBUG
+#define MG_ENABLE_ASSERTS
+#endif // MG_DEBUG
+
+
 //debugƒ£ Ω…Ë÷√
 #ifdef MG_ENABLE_ASSERTS
 	#define MG_CLIENT_ASSERT(x, ...) { if(!(x)) { MG_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }

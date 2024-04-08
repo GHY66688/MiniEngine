@@ -83,8 +83,7 @@
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -94,7 +93,7 @@
       <ImportLibrary>..\bin\Debug-windows-x86_64\MiniEngine\MiniEngine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\MiniEngine\MiniEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\MiniEngine\MiniEngine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\MiniEngine\MiniEngine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\MiniEngine\MiniEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\MiniEngine\MiniEngine.dll "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\MiniEngine\MiniEngine.dll "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -109,8 +108,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -121,7 +119,7 @@
       <ImportLibrary>..\bin\Release-windows-x86_64\MiniEngine\MiniEngine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\MiniEngine\MiniEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\MiniEngine\MiniEngine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\MiniEngine\MiniEngine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\MiniEngine\MiniEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\MiniEngine\MiniEngine.dll "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\MiniEngine\MiniEngine.dll "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -136,8 +134,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -148,11 +145,10 @@
       <ImportLibrary>..\bin\Dist-windows-x86_64\MiniEngine\MiniEngine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows-x86_64\MiniEngine\MiniEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\MiniEngine\MiniEngine.dll ..\bin\Dist-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\MiniEngine\MiniEngine.dll ..\bin\Dist-windows-x86_64\SandBox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\MiniEngine\MiniEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\MiniEngine\MiniEngine.dll "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\MiniEngine\MiniEngine.dll "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\MiniEngine\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\MGpch.h" />
     <ClInclude Include="src\MiniEngine.h" />
     <ClInclude Include="src\MiniEngine\Application.h" />
@@ -162,23 +158,29 @@
     <ClInclude Include="src\MiniEngine\Events\Event.h" />
     <ClInclude Include="src\MiniEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\MiniEngine\Events\MouseEvent.h" />
+    <ClInclude Include="src\MiniEngine\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\MiniEngine\Input.h" />
+    <ClInclude Include="src\MiniEngine\KeyCodes.h" />
     <ClInclude Include="src\MiniEngine\Layer.h" />
     <ClInclude Include="src\MiniEngine\LayerStack.h" />
     <ClInclude Include="src\MiniEngine\Log.h" />
+    <ClInclude Include="src\MiniEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\MiniEngine\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\MiniEngine\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\MGpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\MiniEngine\Application.cpp" />
+    <ClCompile Include="src\MiniEngine\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\MiniEngine\Layer.cpp" />
     <ClCompile Include="src\MiniEngine\LayerStack.cpp" />
     <ClCompile Include="src\MiniEngine\Log.cpp" />
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
   <ItemGroup>

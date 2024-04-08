@@ -185,6 +185,7 @@ namespace MG {
 	void ImGuiLayer::OnEvent(Event& e)
 	{
         EventDispatcher dispatcher(e);
+        //依此检测每种事件是否发生
         dispatcher.Dispatch<MouseButtonPressedEvent>(MG_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonPressedEvent));
         dispatcher.Dispatch<MouseButtonReleasedEvent>(MG_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonReleasedEvent));
         dispatcher.Dispatch<MouseMovedEvent>(MG_BIND_EVENT_FN(ImGuiLayer::OnMouseMovedEvent));
@@ -193,8 +194,6 @@ namespace MG {
         dispatcher.Dispatch<KeyReleasedEvent>(MG_BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
         dispatcher.Dispatch<KeyTypedEvent>(MG_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
         dispatcher.Dispatch<WindowResizeEvent>(MG_BIND_EVENT_FN(ImGuiLayer::OnWindowResizedEvent));
-
-
 	}
 
     bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)

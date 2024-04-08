@@ -2,6 +2,8 @@
 
 #include "Application.h"
 
+#include"Input.h"
+
 #include<glad/glad.h>
 
 namespace MG {
@@ -37,6 +39,7 @@ namespace MG {
 				layer->OnUpdate();
 			}
 
+
 			m_Window->OnUpdate();
 		}
 	}
@@ -49,7 +52,7 @@ namespace MG {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
-		MG_CORE_INFO("{0}", e);
+		//MG_CORE_INFO("{0}", e);
 
 		//反向遍历，当该事件已经处理完毕，则不再遍历
 		//例如Layer1已经处理了该事件，并将该事件标记为Handled；Layer2就无需进行处理

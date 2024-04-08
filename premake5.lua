@@ -1,5 +1,6 @@
 workspace "MiniEngine"
 	architecture "x64"
+	startproject "SandBox"
 
 	configurations
 	{
@@ -21,10 +22,13 @@ include "MiniEngine/vendor/GLFW"
 include "MiniEngine/vendor/Glad"
 include "MiniEngine/vendor/imgui"
 
+
+
 project "MiniEngine"
 	location "MiniEngine"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -57,7 +61,6 @@ project "MiniEngine"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -69,22 +72,22 @@ project "MiniEngine"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/SandBox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 	filter "configurations:Debug"
 		defines "MG_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 		
 	filter "configurations:Release"
 		defines "MG_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "MG_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 	
 
@@ -92,6 +95,7 @@ project "SandBox"
 	location "SandBox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -115,7 +119,6 @@ project "SandBox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -126,15 +129,15 @@ project "SandBox"
 
 	filter "configurations:Debug"
 		defines "MG_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 		
 	filter "configurations:Release"
 		defines "MG_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "MG_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
