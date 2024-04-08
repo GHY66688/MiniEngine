@@ -9,6 +9,7 @@ int main(int argc, char** argv)
 {
 	MG::Log::Init();
 	
+	MG_CLIENT_INFO("Initlized Log!");
 
 	auto app = MG::CreateApplication();
 	app->Run();

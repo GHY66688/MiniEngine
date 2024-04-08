@@ -2,14 +2,20 @@
 
 #include "Application.h"
 
-#include<GLFW/glfw3.h>
+#include<glad/glad.h>
 
 namespace MG {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application()
 	{
+		MG_CORE_ASSERT(!s_Instance, "Application already exists!");
+
+		s_Instance = this;
+
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	}
@@ -24,6 +30,13 @@ namespace MG {
 		{
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			//每一层进行更新
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnUpdate();
+			}
+
 			m_Window->OnUpdate();
 		}
 	}
@@ -37,6 +50,31 @@ namespace MG {
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
 		MG_CORE_INFO("{0}", e);
+
+		//反向遍历，当该事件已经处理完毕，则不再遍历
+		//例如Layer1已经处理了该事件，并将该事件标记为Handled；Layer2就无需进行处理
+		//由于每一种事件可能只对一层Layer有效；
+		//此举是为了确保每一种事件都能够传给有效的最上层Layer进行处理，并且避免重复处理
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+		{
+			(*--it)->OnEvent(e);
+			if (e.m_Handled)
+			{
+				break;
+			}
+		}
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
+	}
+
+	void Application::PushOverlay(Layer* overlay)
+	{
+		m_LayerStack.PushOverlay(overlay);
+		overlay->OnAttach();
 	}
 
 	//关闭窗口

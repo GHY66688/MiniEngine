@@ -14,8 +14,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "MiniEngine/vendor/GLFW/include"
+IncludeDir["Glad"] = "MiniEngine/vendor/Glad/include"
+IncludeDir["ImGui"] = "MiniEngine/vendor/imgui"
 
 include "MiniEngine/vendor/GLFW"
+include "MiniEngine/vendor/Glad"
+include "MiniEngine/vendor/imgui"
 
 project "MiniEngine"
 	location "MiniEngine"
@@ -38,14 +42,17 @@ project "MiniEngine"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links
 	{
 		"GLFW",
-		"opengl32.lib",
-		"dwmapi.lib"
+		"Glad",
+		"ImGui",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -56,7 +63,8 @@ project "MiniEngine"
 		defines
 		{
 			"MG_PLATFORM_WINDOWS",
-			"MG_BUILD_DLL"
+			"MG_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -66,14 +74,17 @@ project "MiniEngine"
 
 	filter "configurations:Debug"
 		defines "MG_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 		
 	filter "configurations:Release"
 		defines "MG_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "MG_DIST"
+		buildoptions "/MD"
 		optimize "On"
 	
 
@@ -115,12 +126,15 @@ project "SandBox"
 
 	filter "configurations:Debug"
 		defines "MG_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 		
 	filter "configurations:Release"
 		defines "MG_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "MG_DIST"
+		buildoptions "/MD"
 		optimize "On"

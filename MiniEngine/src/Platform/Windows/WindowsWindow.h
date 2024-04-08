@@ -4,6 +4,7 @@
 
 #include<GLFW/glfw3.h>
 
+
 namespace MG {
 
 	class WindowsWindow : public Window

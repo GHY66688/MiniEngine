@@ -38,6 +38,12 @@
     <ClInclude Include="src\MiniEngine\Events\MouseEvent.h">
       <Filter>MiniEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\MiniEngine\Layer.h">
+      <Filter>MiniEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\LayerStack.h">
+      <Filter>MiniEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\MiniEngine\Log.h">
       <Filter>MiniEngine</Filter>
     </ClInclude>
@@ -47,10 +53,18 @@
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\MiniEngine\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MGpch.cpp" />
     <ClCompile Include="src\MiniEngine\Application.cpp">
+      <Filter>MiniEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniEngine\Layer.cpp">
+      <Filter>MiniEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniEngine\LayerStack.cpp">
       <Filter>MiniEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\MiniEngine\Log.cpp">
@@ -59,5 +73,7 @@
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\MiniEngine\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
   </ItemGroup>
 </Project>

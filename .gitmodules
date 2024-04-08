@@ -4,3 +4,6 @@
 [submodule "MiniEngine/vendor/GLFW"]
 	path = MiniEngine/vendor/GLFW
 	url = https://github.com/glfw/glfw
+[submodule "MiniEngine/vendor/imgui"]
+	path = MiniEngine/vendor/imgui
+	url = https://github.com/TheCherno/imgui
