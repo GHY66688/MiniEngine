@@ -25,7 +25,7 @@ class SandBox : public MG::Application
 public:
 	SandBox() 
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
 		PushOverlay(new MG::ImGuiLayer());
 	}
 	~SandBox() 
