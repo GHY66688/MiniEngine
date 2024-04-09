@@ -5,9 +5,8 @@ bin/
 
 bin-int/
 
-MiniEngine/vendor/GLFW/bin/
+MiniEngine/vendor
 
-MiniEngine/vendor/GLFW/bin-int/
 
 
 #Files
