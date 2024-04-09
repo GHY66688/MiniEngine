@@ -7,3 +7,6 @@
 [submodule "MiniEngine/vendor/glm"]
 	path = MiniEngine/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "MiniEngine/vendor/GLFW"]
+	path = MiniEngine/vendor/GLFW
+	url = https://github.com/glfw/glfw
