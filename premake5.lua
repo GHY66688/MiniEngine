@@ -17,6 +17,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "MiniEngine/vendor/GLFW/include"
 IncludeDir["Glad"] = "MiniEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "MiniEngine/vendor/imgui"
+IncludeDir["glm"] = "MiniEngine/vendor/glm"
 
 include "MiniEngine/vendor/GLFW"
 include "MiniEngine/vendor/Glad"
@@ -26,9 +27,12 @@ include "MiniEngine/vendor/imgui"
 
 project "MiniEngine"
 	location "MiniEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
+
+
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -39,7 +43,10 @@ project "MiniEngine"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
+
 	}
 
 	includedirs
@@ -48,7 +55,8 @@ project "MiniEngine"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -60,42 +68,39 @@ project "MiniEngine"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
 		{
 			"MG_PLATFORM_WINDOWS",
 			"MG_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
+			"GLFW_INCLUDE_NONE",
+			"_CRT_SECURE_NO_WARNINGS"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-		}
 
 	filter "configurations:Debug"
 		defines "MG_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 		
 	filter "configurations:Release"
 		defines "MG_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "MG_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 	
 
 project "SandBox"
 	location "SandBox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -109,7 +114,10 @@ project "SandBox"
 	includedirs
 	{
 		"MiniEngine/vendor/spdlog/include",
-		"MiniEngine/src"
+		"MiniEngine/src",
+		"MiniEngine/vendor",
+		"%{IncludeDir.glm}"
+
 	}
 
 	links
@@ -118,7 +126,6 @@ project "SandBox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
@@ -130,14 +137,14 @@ project "SandBox"
 	filter "configurations:Debug"
 		defines "MG_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 		
 	filter "configurations:Release"
 		defines "MG_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "MG_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"

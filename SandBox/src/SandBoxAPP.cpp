@@ -3,10 +3,17 @@
 #include"MiniEngine.h"
 #include<iostream>
 
+#include"imgui/imgui.h"
+
+
+
+
 class ExampleLayer : public MG::Layer
 {
 public:
-	ExampleLayer() : Layer("Example") {}
+	ExampleLayer() : Layer("Example") 
+	{
+	}
 
 	//轮询，每帧都会输出
 	void OnUpdate() override
@@ -15,6 +22,13 @@ public:
 		{
 			MG_CLIENT_TRACE("Tab is pressed！");
 		}
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello world");
+		ImGui::End();
 	}
 
 	//触发事件时输出
@@ -31,7 +45,8 @@ public:
 	SandBox() 
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new MG::ImGuiLayer());
+		//将ImGuiLayer设为Application的private变量，自动添加
+		//PushOverlay(new MG::ImGuiLayer());
 	}
 	~SandBox() 
 	{
