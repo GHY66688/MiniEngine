@@ -140,6 +140,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\MiniEngine\Renderer\Buffer.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\Renderer.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\Shader.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\MGpch.h" />
     <ClInclude Include="src\MiniEngine.h" />
     <ClInclude Include="src\MiniEngine\Application.h" />
@@ -156,6 +161,7 @@
     <ClInclude Include="src\MiniEngine\LayerStack.h" />
     <ClInclude Include="src\MiniEngine\Log.h" />
     <ClInclude Include="src\MiniEngine\MouseButtonCodes.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\MiniEngine\Window.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
@@ -577,6 +583,11 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\MiniEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\MiniEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\MiniEngine\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\MGpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

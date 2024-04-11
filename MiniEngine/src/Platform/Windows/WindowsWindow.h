@@ -1,6 +1,9 @@
 #pragma once
 
+
 #include "MiniEngine/Window.h"
+#include "MiniEngine/Renderer/GraphicsContext.h"
+
 
 #include<GLFW/glfw3.h>
 
@@ -32,6 +35,7 @@ namespace MG {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{
