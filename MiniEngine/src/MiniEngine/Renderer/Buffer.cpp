@@ -16,12 +16,12 @@ namespace MG {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::None: 
+		case RendererAPI::API::None: 
 			{
 				MG_CORE_ASSERT(false, "RendererAPI is currently not supported!");
 				return nullptr;
 			}
-			case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			{
 				return new OpenGLVertexBuffer(vertices, size);
 			}
@@ -36,12 +36,12 @@ namespace MG {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 		{
 			MG_CORE_ASSERT(false, "RendererAPI is currently not supported!");
 			return nullptr;
 		}
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 		{
 			return new OpenGLIndexBuffer(indices, count);
 		}

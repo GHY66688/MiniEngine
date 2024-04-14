@@ -1347,6 +1347,19 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="src\MiniEngine\Renderer\Buffer.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\Renderer.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\Shader.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\MiniEngine\Core\TimeStep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MGpch.cpp">
@@ -1376,5 +1389,16 @@
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\MiniEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\MiniEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\MiniEngine\Renderer\Shader.cpp" />
+    <ClCompile Include="src\MiniEngine\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\MiniEngine\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\MiniEngine\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\MiniEngine\Renderer\OrthographicCamera.cpp" />
   </ItemGroup>
 </Project>

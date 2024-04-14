@@ -3,6 +3,8 @@
 #include"MiniEngine/Core.h"
 #include"MiniEngine/Events/Event.h"
 
+#include "Core/TimeStep.h"
+
 namespace MG {
 	class MG_API Layer
 	{
@@ -12,7 +14,7 @@ namespace MG {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(TimeStep ts) {}
 		virtual void OnEvent(Event& e) {}
 		virtual void OnImGuiRender() {}
 

@@ -140,8 +140,13 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\MiniEngine\Core\TimeStep.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\MiniEngine\Renderer\Buffer.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\RenderCommand.h" />
     <ClInclude Include="src\MiniEngine\Renderer\Renderer.h" />
+    <ClInclude Include="src\MiniEngine\Renderer\RendererAPI.h" />
     <ClInclude Include="src\MiniEngine\Renderer\Shader.h" />
     <ClInclude Include="src\MiniEngine\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
@@ -585,8 +590,12 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\MiniEngine\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\MiniEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\MiniEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\MiniEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\MiniEngine\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\MiniEngine\Renderer\Shader.cpp" />
     <ClCompile Include="src\MiniEngine\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />

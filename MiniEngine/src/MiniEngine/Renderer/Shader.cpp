@@ -3,6 +3,8 @@
 
 #include <glad/glad.h>
 
+#include <glm/gtc/type_ptr.hpp>
+
 namespace MG {
 
 
@@ -130,6 +132,14 @@ namespace MG {
 	void Shader::Unbind() const
 	{
 		glUseProgram(0);
+	}
+
+	void Shader::UnloadUniformMat4(const std::string& name, const glm::mat4& matrix)
+	{
+		//-1则代表没有找到
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		//uniform位置， 几个矩阵， 是否转置(OpenGL和glm都主列，无需转置，若DirectX和glm，则需要转置，因为DirectX主行)
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
 }	//end MG

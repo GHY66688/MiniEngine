@@ -7,11 +7,11 @@
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
 
+#include "Core/TimeStep.h"
+
 #include "ImGui/ImGuiLayer.h"
 
-#include "Renderer/Shader.h"
-#include "Renderer/Buffer.h"
-#include "Renderer/VertexArray.h"
+
 
 
 namespace MG {
@@ -37,17 +37,13 @@ namespace MG {
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
-
+	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Runing = true;
 		LayerStack m_LayerStack;
-
-		std::shared_ptr<VertexArray> m_VertexArray;
-		std::shared_ptr<Shader> m_Shader;	
-
-		std::shared_ptr<VertexArray> m_SquareVA;
-		std::shared_ptr<Shader> m_Shader2;
+		//最后一帧所需时间
+		float m_LastFrameTime = 0.0f;
 
 
 
