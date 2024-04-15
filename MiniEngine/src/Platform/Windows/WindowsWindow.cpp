@@ -67,8 +67,8 @@ namespace MG {
 		if (!s_GLFWInitialized)
 		{
 			int success = glfwInit();
-			glfwSetErrorCallback(GLFWErrorCallback);
 			MG_CORE_ASSERT(success, "Could not intialize GLFW!");
+			glfwSetErrorCallback(GLFWErrorCallback);
 
 			s_GLFWInitialized = true;
 		}

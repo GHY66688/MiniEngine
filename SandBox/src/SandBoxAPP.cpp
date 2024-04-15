@@ -5,13 +5,19 @@
 
 #include"imgui/imgui.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "Platform/OpenGL/OpenGLShader.h"
+
+
 
 
 
 class ExampleLayer : public MG::Layer
 {
 public:
-	ExampleLayer() : Layer("Example"), m_Camera({-1.6f, 1.6f, -0.9f, 0.9f}), m_CameraPosition(0.0f, 0.0f, 0.0f)
+	ExampleLayer() : Layer("Example"), m_Camera({-1.6f, 1.6f, -0.9f, 0.9f}), m_CameraPosition(0.0f)
 	{
 		m_VertexArray.reset(MG::VertexArray::Create());
 
@@ -68,6 +74,7 @@ public:
 			layout(location = 0) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 va_Position;
 			out vec4 v_Color;
@@ -75,7 +82,7 @@ public:
 			{
 				v_Color = a_Color;
 				va_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -93,7 +100,7 @@ public:
 		)";
 
 
-		m_Shader.reset(new MG::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(MG::Shader::Create(vertexSrc, fragmentSrc));
 
 		////////////////////////////////////////////////////////
 		//test squareVA
@@ -102,12 +109,13 @@ public:
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 va_Position;
 			void main()
 			{
 				va_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -116,14 +124,17 @@ public:
 			#version 330 core
 			layout(location = 0) out vec4 color;
 			in vec3 va_Position;
+
+			uniform vec4 u_Color;			
+
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = u_Color;
 			}
 		)";
 
 
-		m_Shader2.reset(new MG::Shader(vertexSrc2, fragmentSrc2));
+		m_Shader2.reset(MG::Shader::Create(vertexSrc2, fragmentSrc2));
 	}
 
 	//轮询，每帧都会输出
@@ -131,6 +142,9 @@ public:
 	{
 		MG_CLIENT_TRACE("delta time:  {0}", ts);
 
+		//////////////////////////////////////////////////////////////
+		//camera move and rotate///////////////////////////////
+		// //////////////////////////////////////////////////////////////
 		//在按刷新率接收事件时，可以使得相机移动更加smooth
 		//但是刷新率越高的显示器，相机移动速度越快，需要设置deltaTimeUpdate
 
@@ -163,6 +177,28 @@ public:
 			m_CameraRotation -= m_CameraRotateSpeed * ts;
 		}
 
+		////object position
+		//if (MG::Input::IsKeyPressed(MG_KEY_J))
+		//{
+		//	m_ModelPosition.x -= m_ModelMoveSpeed * ts;
+		//}
+		//else if (MG::Input::IsKeyPressed(MG_KEY_L))
+		//{
+		//	m_ModelPosition.x += m_ModelMoveSpeed * ts;
+		//}
+
+		//if (MG::Input::IsKeyPressed(MG_KEY_I))
+		//{
+		//	m_ModelPosition.y += m_ModelMoveSpeed * ts;
+		//}
+		//else if (MG::Input::IsKeyPressed(MG_KEY_K))
+		//{
+		//	m_ModelPosition.y -= m_ModelMoveSpeed * ts;
+		//}
+
+		///////////////////////////////////////////////////////////
+		//renderer/////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////
 		MG::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		MG::RenderCommand::Clear();
 
@@ -171,10 +207,23 @@ public:
 
 		MG::Renderer::BeginScene(m_Camera);
 
-		MG::Renderer::Submit(m_Shader2, m_SquareVA);
+		//设置大小为原来的0.1倍
+		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 
-		MG::Renderer::Submit(m_Shader, m_VertexArray);
+		std::dynamic_pointer_cast<MG::OpenGLShader>(m_Shader2)->UploadUniformFloat3("u_Color", m_SquareColor);
+
+		for (int i = 0; i < 5; ++i)
+		{
+			
+			//设置出生位置， 可以在两个正方形中间留下0.01f的间隔
+			glm::vec3 pos(i * 0.11f, 0.0f, 0.0f);
+			glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+			MG::Renderer::Submit(m_Shader2, m_SquareVA, transform);
+		}
+
+
+		//MG::Renderer::Submit(m_Shader, m_VertexArray);
 
 
 		MG::Renderer::EndScene();
@@ -182,6 +231,10 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+
+		ImGui::End();
 	}
 
 	//触发事件时输出
@@ -235,6 +288,12 @@ private:
 	float m_CameraMoveSpeed = -0.01f;	//1s移动的幅度
 	float m_CameraRotation = 0.0f;
 	float m_CameraRotateSpeed = -0.05f;	//一s旋转的幅度
+
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
+
+	//glm::vec3 m_ModelPosition;
+	//float m_ModelMoveSpeed = 0.01f;		//model不用取反
+
 };
 
 

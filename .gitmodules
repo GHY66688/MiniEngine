@@ -1,12 +1,12 @@
 [submodule "MiniEngine/vendor/spdlog"]
 	path = MiniEngine/vendor/spdlog
 	url = https://github.com/gabime/spdlog
-[submodule "MiniEngine/vendor/imgui"]
-	path = MiniEngine/vendor/imgui
-	url = https://github.com/TheCherno/imgui
 [submodule "MiniEngine/vendor/glm"]
 	path = MiniEngine/vendor/glm
 	url = https://github.com/g-truc/glm
 [submodule "MiniEngine/vendor/GLFW"]
 	path = MiniEngine/vendor/GLFW
 	url = https://github.com/glfw/glfw
+[submodule "MiniEngine/vendor/imgui"]
+	path = MiniEngine/vendor/imgui
+	url = https://github.com/ocornut/imgui
