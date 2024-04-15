@@ -125,11 +125,11 @@ public:
 			layout(location = 0) out vec4 color;
 			in vec3 va_Position;
 
-			uniform vec4 u_Color;			
+			uniform vec3 u_Color;			
 
 			void main()
 			{
-				color = u_Color;
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
@@ -211,6 +211,7 @@ public:
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 
+		std::dynamic_pointer_cast<MG::OpenGLShader>(m_Shader2)->Bind();
 		std::dynamic_pointer_cast<MG::OpenGLShader>(m_Shader2)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 		for (int i = 0; i < 5; ++i)
