@@ -4,6 +4,8 @@
 
 #include"Input.h"
 
+#include "MiniEngine/Renderer/Renderer.h"
+
 //temporate
 #include <GLFW/glfw3.h>
 
@@ -27,6 +29,9 @@ namespace MG {
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		m_Window->SetVSync(false);
+
+		Renderer::Init();
+
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

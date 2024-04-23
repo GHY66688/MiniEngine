@@ -1,15 +1,20 @@
 #pragma once
 
-#include<string>
-#include<glm/glm.hpp>
+#include <string>
+#include <glm/glm.hpp>
 
 #include "MiniEngine/Renderer/Shader.h"
+
+//由于该头文件需要被SandBoxAPP引用，而SandBoxAPP并没有访问glad的权限，所以无法在该头文件中包含glad来解析GLenum
+//TODO:REMOVE!
+typedef unsigned int GLenum;
 
 namespace MG {
 
 	class OpenGLShader : public Shader
 	{
 	public:
+		OpenGLShader(const std::string& filepath);
 		OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
 		virtual ~OpenGLShader();
 
@@ -26,6 +31,11 @@ namespace MG {
 
 		void UploadUniformMat3(const std::string& name, const glm::mat3& matrix);
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
+
+	private:
+		std::string ReadFile(const std::string& filepath);
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
+		void Compile(std::unordered_map<GLenum, std::string>& shaderSources);
 
 	private:
 		uint32_t m_RendererID;

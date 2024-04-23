@@ -19,6 +19,7 @@
 
 #include "MiniEngine/Renderer/Buffer.h"
 #include "MiniEngine/Renderer/Shader.h"
+#include "MiniEngine/Renderer/Texture.h"
 #include "MiniEngine/Renderer/VertexArray.h"
 
 #include "MiniEngine/Renderer/OrthographicCamera.h"

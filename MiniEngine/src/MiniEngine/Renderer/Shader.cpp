@@ -9,6 +9,25 @@ namespace MG {
 
 
 
+	Shader* Shader::Create(const std::string& filepath)
+	{
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::API::None:
+			{
+				MG_CORE_ASSERT(false, "RendererAPI is currently not supported!");
+				return nullptr;
+			}
+			case RendererAPI::API::OpenGL:
+			{
+				return new OpenGLShader(filepath);
+			}
+		}
+
+		MG_CORE_ASSERT(false, "unknown RendererAPI!");
+		return nullptr;
+	}
+
 	Shader* Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		switch (Renderer::GetAPI())

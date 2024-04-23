@@ -27,7 +27,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 1.0f, 0.2f, 0.4f, 1.0f
 		};
 
-		std::shared_ptr<MG::VertexBuffer> vertexBuffer;
+		MG::Ref<MG::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(MG::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		vertexBuffer->SetLayout({
@@ -39,30 +39,31 @@ public:
 
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<MG::IndexBuffer> indexBuffer;
+		MG::Ref<MG::IndexBuffer> indexBuffer;
 		indexBuffer.reset(MG::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 
-		float vertices2[4 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float vertices2[4 * 5] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		m_SquareVA.reset(MG::VertexArray::Create());
-		std::shared_ptr<MG::VertexBuffer> squareVB;
+		MG::Ref<MG::VertexBuffer> squareVB;
 		squareVB.reset(MG::VertexBuffer::Create(vertices2, sizeof(vertices2)));
-		squareVB->SetLayout({ { "a_Position", MG::ShaderDataType::Float3 } });
+		squareVB->SetLayout({ { "a_Position", MG::ShaderDataType::Float3 },
+							  { "a_TexCoord", MG::ShaderDataType::Float2 } });
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t indices2[2 * 3] = {
 			0, 1, 2,
 			0, 2, 3
 		};
-		std::shared_ptr<MG::IndexBuffer> squareIB;
+		MG::Ref<MG::IndexBuffer> squareIB;
 		squareIB.reset(MG::IndexBuffer::Create(indices2, 6));
 
 		m_SquareVA->SetIndexBuffer(squareIB);
@@ -135,12 +136,22 @@ public:
 
 
 		m_Shader2.reset(MG::Shader::Create(vertexSrc2, fragmentSrc2));
+
+
+		m_TextureShader.reset(MG::Shader::Create("assets/shaders/Texture.glsl"));
+
+		m_Texture = MG::Texture2D::Create("assets/textures/PNG_test.png");
+		m_TextureAlpha = MG::Texture2D::Create("assets/textures/PNG_test1.png");
+
+
+		std::dynamic_pointer_cast<MG::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<MG::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);	//0代表0号插槽
 	}
 
 	//轮询，每帧都会输出
 	void OnUpdate(MG::TimeStep ts) override
 	{
-		MG_CLIENT_TRACE("delta time:  {0}", ts);
+		//MG_CLIENT_TRACE("delta time:  {0}", ts);
 
 		//////////////////////////////////////////////////////////////
 		//camera move and rotate///////////////////////////////
@@ -211,20 +222,31 @@ public:
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 
-		std::dynamic_pointer_cast<MG::OpenGLShader>(m_Shader2)->Bind();
-		std::dynamic_pointer_cast<MG::OpenGLShader>(m_Shader2)->UploadUniformFloat3("u_Color", m_SquareColor);
+		//std::dynamic_pointer_cast<MG::OpenGLShader>(m_Shader2)->Bind();
+		//std::dynamic_pointer_cast<MG::OpenGLShader>(m_Shader2)->UploadUniformFloat3("u_Color", m_SquareColor);
 
-		for (int i = 0; i < 5; ++i)
-		{
-			
-			//设置出生位置， 可以在两个正方形中间留下0.01f的间隔
-			glm::vec3 pos(i * 0.11f, 0.0f, 0.0f);
-			glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-			MG::Renderer::Submit(m_Shader2, m_SquareVA, transform);
-		}
+		//std::dynamic_pointer_cast<MG::OpenGLShader>(m_TextureShader)->Bind();
+		//std::dynamic_pointer_cast<MG::OpenGLShader>(m_TextureShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
+		//for (int i = 0; i < 5; ++i)
+		//{
+		//	
+		//	//设置出生位置， 可以在两个正方形中间留下0.01f的间隔
+		//	glm::vec3 pos(i * 0.11f, 0.0f, 0.0f);
+		//	glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+		//	MG::Renderer::Submit(m_Shader2, m_SquareVA, transform);
+		//}
 
+		//三角形
 		//MG::Renderer::Submit(m_Shader, m_VertexArray);
+
+		//正方形
+		m_Texture->Bind();
+		MG::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		m_TextureAlpha->Bind();
+		MG::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
 
 
 		MG::Renderer::EndScene();
@@ -246,43 +268,14 @@ public:
 		dispatch.Dispatch<MG::KeyPressedEvent>(MG_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));*/
 	}
 
-	////由于是事件回调，所以在移动时会按照按键的触发间隔进行，而不是以实际设定的刷新率更新，导致相机移动卡顿
-	//bool OnKeyPressedEvent(MG::KeyPressedEvent& event)
-	//{
-	//	if (event.GetKeyCode() == MG_KEY_LEFT || event.GetKeyCode() == MG_KEY_A)
-	//	{
-	//		m_CameraPosition.x -= m_CameraSpeed;
-	//	}
-	//	if (event.GetKeyCode() == MG_KEY_RIGHT || event.GetKeyCode() == MG_KEY_D)
-	//	{
-	//		m_CameraPosition.x += m_CameraSpeed;
-	//	}
-	//	if (event.GetKeyCode() == MG_KEY_UP || event.GetKeyCode() == MG_KEY_W)
-	//	{
-	//		m_CameraPosition.y += m_CameraSpeed;
-	//	}
-	//	if (event.GetKeyCode() == MG_KEY_DOWN || event.GetKeyCode() == MG_KEY_S)
-	//	{
-	//		m_CameraPosition.y -= m_CameraSpeed;
-	//	}
-	//	//z轴前后移动， 但因为是正交相机，所以大小不会发生变化，超过一定距离会直接消失
-	//	//if (event.GetKeyCode() == MG_KEY_LEFT_SHIFT)
-	//	//{
-	//	//	m_CameraPosition.z -= m_CameraSpeed;
-	//	//}
-	//	//if (event.GetKeyCode() == MG_KEY_LEFT_CONTROL)
-	//	//{
-	//	//	m_CameraPosition.z += m_CameraSpeed;
-	//	//}
-	//	return false;
-	//}
 
 private:
-	std::shared_ptr<MG::VertexArray> m_VertexArray;
-	std::shared_ptr<MG::Shader> m_Shader;
+	MG::Ref<MG::VertexArray> m_VertexArray;
+	MG::Ref<MG::Shader> m_Shader;
 
-	std::shared_ptr<MG::VertexArray> m_SquareVA;
-	std::shared_ptr<MG::Shader> m_Shader2;
+	MG::Ref<MG::VertexArray> m_SquareVA;
+	MG::Ref<MG::Shader> m_Shader2, m_TextureShader;
+	MG::Ref<MG::Texture2D> m_Texture, m_TextureAlpha;
 
 	MG::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
