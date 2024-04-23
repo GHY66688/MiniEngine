@@ -101,7 +101,7 @@ public:
 		)";
 
 
-		m_Shader.reset(MG::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = MG::Shader::Create("TriangleVertexcolor", vertexSrc, fragmentSrc);
 
 		////////////////////////////////////////////////////////
 		//test squareVA
@@ -134,18 +134,18 @@ public:
 			}
 		)";
 
+		m_Shader2 = MG::Shader::Create("SquareUniformColor", vertexSrc2, fragmentSrc2);
 
-		m_Shader2.reset(MG::Shader::Create(vertexSrc2, fragmentSrc2));
+		auto TextureShader = m_ShaderLibrary.Load("Texture", "assets/shaders/Texture.glsl");
 
-
-		m_TextureShader.reset(MG::Shader::Create("assets/shaders/Texture.glsl"));
+		//m_TextureShader = MG::Shader::Create("assets/shaders/Texture.glsl");
 
 		m_Texture = MG::Texture2D::Create("assets/textures/PNG_test.png");
 		m_TextureAlpha = MG::Texture2D::Create("assets/textures/PNG_test1.png");
 
 
-		std::dynamic_pointer_cast<MG::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<MG::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);	//0代表0号插槽
+		std::dynamic_pointer_cast<MG::OpenGLShader>(TextureShader)->Bind();
+		std::dynamic_pointer_cast<MG::OpenGLShader>(TextureShader)->UploadUniformInt("u_Texture", 0);	//0代表0号插槽
 	}
 
 	//轮询，每帧都会输出
@@ -241,11 +241,13 @@ public:
 		//MG::Renderer::Submit(m_Shader, m_VertexArray);
 
 		//正方形
+		auto TextureShader = m_ShaderLibrary.Get("Texture");
+
 		m_Texture->Bind();
-		MG::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		MG::Renderer::Submit(TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_TextureAlpha->Bind();
-		MG::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		MG::Renderer::Submit(TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 
 
@@ -270,11 +272,14 @@ public:
 
 
 private:
+	//TODO:将ShaderLibrary提取到Renderer中，在初始化Renderer时便直接加载Shader
+	MG::ShaderLibrary m_ShaderLibrary;
+
 	MG::Ref<MG::VertexArray> m_VertexArray;
 	MG::Ref<MG::Shader> m_Shader;
 
 	MG::Ref<MG::VertexArray> m_SquareVA;
-	MG::Ref<MG::Shader> m_Shader2, m_TextureShader;
+	MG::Ref<MG::Shader> m_Shader2;
 	MG::Ref<MG::Texture2D> m_Texture, m_TextureAlpha;
 
 	MG::OrthographicCamera m_Camera;
