@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "MiniEngine/Input.h"
+#include "MiniEngine/Core/Input.h"
 
 namespace MG {
 

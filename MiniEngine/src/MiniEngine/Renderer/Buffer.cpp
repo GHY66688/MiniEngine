@@ -2,7 +2,7 @@
 
 #include "Buffer.h" 
 		 
-#include "MiniEngine/Core.h"
+#include "MiniEngine/Core/Core.h"
 		 
 #include "Renderer.h"
 		 
@@ -12,7 +12,7 @@
 
 namespace MG {
 	//决定使用哪种图形API
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -23,7 +23,7 @@ namespace MG {
 			}
 		case RendererAPI::API::OpenGL:
 			{
-				return new OpenGLVertexBuffer(vertices, size);
+				return std::make_shared<OpenGLVertexBuffer>(vertices, size);
 			}
 		}
 

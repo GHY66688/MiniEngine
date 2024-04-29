@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "MiniEngine/Window.h"
+#include "MiniEngine/Core/Window.h"
 #include "MiniEngine/Renderer/GraphicsContext.h"
 
 

@@ -14,7 +14,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "MiniEngine/Log.h"
+#include "MiniEngine/Core/Log.h"
 
 
 #ifdef MG_PLATFORM_WINDOWS

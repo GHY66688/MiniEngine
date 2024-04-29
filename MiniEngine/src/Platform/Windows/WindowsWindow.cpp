@@ -1,6 +1,6 @@
 #include "MGpch.h"
 #include "WindowsWindow.h"
-#include"MiniEngine/Log.h"
+#include"MiniEngine/Core/Log.h"
 
 #include"MiniEngine/Events/ApplicationEvent.h"
 #include"MiniEngine/Events/KeyEvent.h"

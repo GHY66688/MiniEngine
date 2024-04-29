@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\SandBox2D.cpp" />
     <ClCompile Include="src\SandBoxAPP.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,7 +140,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\Texture.glsl" />
+    <ClInclude Include="src\SandBox2D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\FlatColor.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

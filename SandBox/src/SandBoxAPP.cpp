@@ -1,7 +1,9 @@
-#include"MGpch.h"
+#include "MGpch.h"
 
-#include"MiniEngine.h"
-#include<iostream>
+#include <MiniEngine.h>
+#include <MiniEngine/Core/EntryPoint.h>
+
+
 
 #include"imgui/imgui.h"
 
@@ -10,6 +12,8 @@
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
+#include "SandBox2D.h"
+
 
 
 
@@ -17,9 +21,9 @@
 class ExampleLayer : public MG::Layer
 {
 public:
-	ExampleLayer() : Layer("Example"), m_Camera({-1.6f, 1.6f, -0.9f, 0.9f}), m_CameraPosition(0.0f)
+	ExampleLayer() : Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
-		m_VertexArray.reset(MG::VertexArray::Create());
+		m_VertexArray = MG::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.2f, 0.4f, 1.0f,
@@ -28,7 +32,7 @@ public:
 		};
 
 		MG::Ref<MG::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(MG::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = MG::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		vertexBuffer->SetLayout({
 			{"a_Position", MG::ShaderDataType::Float3},
@@ -52,9 +56,9 @@ public:
 			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		m_SquareVA.reset(MG::VertexArray::Create());
+		m_SquareVA = MG::VertexArray::Create();
 		MG::Ref<MG::VertexBuffer> squareVB;
-		squareVB.reset(MG::VertexBuffer::Create(vertices2, sizeof(vertices2)));
+		squareVB = MG::VertexBuffer::Create(vertices2, sizeof(vertices2));
 		squareVB->SetLayout({ { "a_Position", MG::ShaderDataType::Float3 },
 							  { "a_TexCoord", MG::ShaderDataType::Float2 } });
 		m_SquareVA->AddVertexBuffer(squareVB);
@@ -151,72 +155,16 @@ public:
 	//轮询，每帧都会输出
 	void OnUpdate(MG::TimeStep ts) override
 	{
-		//MG_CLIENT_TRACE("delta time:  {0}", ts);
+		//Update
+		m_CameraController.OnUpdate(ts);
 
-		//////////////////////////////////////////////////////////////
-		//camera move and rotate///////////////////////////////
-		// //////////////////////////////////////////////////////////////
-		//在按刷新率接收事件时，可以使得相机移动更加smooth
-		//但是刷新率越高的显示器，相机移动速度越快，需要设置deltaTimeUpdate
 
-		//加入else后，上面的判定会优先于else的判定
-		if (MG::Input::IsKeyPressed(MG_KEY_LEFT) || MG::Input::IsKeyPressed(MG_KEY_A))
-		{
-			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-		}
-		else if (MG::Input::IsKeyPressed(MG_KEY_RIGHT) || MG::Input::IsKeyPressed(MG_KEY_D))
-		{
-			m_CameraPosition.x += m_CameraMoveSpeed * ts;
-		}
-
-		if (MG::Input::IsKeyPressed(MG_KEY_UP) || MG::Input::IsKeyPressed(MG_KEY_W))
-		{
-			m_CameraPosition.y += m_CameraMoveSpeed * ts;
-		}
-		else if (MG::Input::IsKeyPressed(MG_KEY_DOWN) || MG::Input::IsKeyPressed(MG_KEY_S))
-		{
-			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
-		}
-
-		//rotation
-		if (MG::Input::IsKeyPressed(MG_KEY_Q))
-		{
-			m_CameraRotation += m_CameraRotateSpeed * ts;
-		}
-		else if (MG::Input::IsKeyPressed(MG_KEY_E))
-		{
-			m_CameraRotation -= m_CameraRotateSpeed * ts;
-		}
-
-		////object position
-		//if (MG::Input::IsKeyPressed(MG_KEY_J))
-		//{
-		//	m_ModelPosition.x -= m_ModelMoveSpeed * ts;
-		//}
-		//else if (MG::Input::IsKeyPressed(MG_KEY_L))
-		//{
-		//	m_ModelPosition.x += m_ModelMoveSpeed * ts;
-		//}
-
-		//if (MG::Input::IsKeyPressed(MG_KEY_I))
-		//{
-		//	m_ModelPosition.y += m_ModelMoveSpeed * ts;
-		//}
-		//else if (MG::Input::IsKeyPressed(MG_KEY_K))
-		//{
-		//	m_ModelPosition.y -= m_ModelMoveSpeed * ts;
-		//}
-
-		///////////////////////////////////////////////////////////
-		//renderer/////////////////////////////////////////////////
-		///////////////////////////////////////////////////////////
+		//Render
 		MG::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		MG::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
 
-		MG::Renderer::BeginScene(m_Camera);
+		MG::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		//设置大小为原来的0.1倍
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
@@ -265,9 +213,8 @@ public:
 	//触发事件时输出
 	void OnEvent(MG::Event& event) override
 	{
-		//调用事件回调函数，更新相机Position，做到移动相机
-		/*MG::EventDispatcher dispatch(event);
-		dispatch.Dispatch<MG::KeyPressedEvent>(MG_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));*/
+		m_CameraController.OnEvent(event);
+
 	}
 
 
@@ -280,13 +227,10 @@ private:
 
 	MG::Ref<MG::VertexArray> m_SquareVA;
 	MG::Ref<MG::Shader> m_Shader2;
+
 	MG::Ref<MG::Texture2D> m_Texture, m_TextureAlpha;
 
-	MG::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = -0.01f;	//1s移动的幅度
-	float m_CameraRotation = 0.0f;
-	float m_CameraRotateSpeed = -0.05f;	//一s旋转的幅度
+	MG::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
@@ -302,9 +246,8 @@ public:
 	//先构建Application，创建上下文，然后创建ExampleLayer
 	SandBox() 
 	{
-		PushLayer(new ExampleLayer());
-		//将ImGuiLayer设为Application的private变量，自动添加
-		//PushOverlay(new MG::ImGuiLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new SandBox2D());
 	}
 	~SandBox() 
 	{

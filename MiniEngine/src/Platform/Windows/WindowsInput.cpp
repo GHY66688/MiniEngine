@@ -1,6 +1,6 @@
 #include "MGpch.h"
 
-#include"MiniEngine/Application.h"
+#include"MiniEngine/Core/Application.h"
 #include "WindowsInput.h"
 
 

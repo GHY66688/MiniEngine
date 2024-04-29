@@ -4,12 +4,12 @@
 
 #include "Window.h"
 #include "LayerStack.h"
-#include "Events/Event.h"
-#include "Events/ApplicationEvent.h"
+#include "MiniEngine/Events/Event.h"
+#include "MiniEngine/Events/ApplicationEvent.h"
 
-#include "Core/TimeStep.h"
+#include "MiniEngine/Core/TimeStep.h"
 
-#include "ImGui/ImGuiLayer.h"
+#include "MiniEngine/ImGui/ImGuiLayer.h"
 
 
 
@@ -36,11 +36,14 @@ namespace MG {
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
+
 
 	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Runing = true;
+		bool m_Minimized = false;	//最小化后，不渲染除ImGui以外的layer，节约GPU开销
 		LayerStack m_LayerStack;
 		//最后一帧所需时间
 		float m_LastFrameTime = 0.0f;

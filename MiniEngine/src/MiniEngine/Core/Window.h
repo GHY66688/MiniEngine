@@ -2,7 +2,7 @@
 
 #include"MGpch.h"
 
-#include"MiniEngine/Core.h"
+#include"MiniEngine/Core/Core.h"
 #include"MiniEngine/Events/Event.h"
 
 namespace MG {

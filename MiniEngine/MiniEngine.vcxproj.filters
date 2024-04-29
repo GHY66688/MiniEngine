@@ -60,17 +60,38 @@
     <ClInclude Include="src\MiniEngine.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\MiniEngine\Application.h">
-      <Filter>src\MiniEngine</Filter>
+    <ClInclude Include="src\MiniEngine\Core\Application.h">
+      <Filter>src\MiniEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\MiniEngine\Core.h">
-      <Filter>src\MiniEngine</Filter>
+    <ClInclude Include="src\MiniEngine\Core\Core.h">
+      <Filter>src\MiniEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\Core\EntryPoint.h">
+      <Filter>src\MiniEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\Core\Input.h">
+      <Filter>src\MiniEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\Core\KeyCodes.h">
+      <Filter>src\MiniEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\Core\Layer.h">
+      <Filter>src\MiniEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\Core\LayerStack.h">
+      <Filter>src\MiniEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\Core\Log.h">
+      <Filter>src\MiniEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\Core\MouseButtonCodes.h">
+      <Filter>src\MiniEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\MiniEngine\Core\TimeStep.h">
       <Filter>src\MiniEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\MiniEngine\EntryPoint.h">
-      <Filter>src\MiniEngine</Filter>
+    <ClInclude Include="src\MiniEngine\Core\Window.h">
+      <Filter>src\MiniEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\MiniEngine\Events\ApplicationEvent.h">
       <Filter>src\MiniEngine\Events</Filter>
@@ -87,24 +108,6 @@
     <ClInclude Include="src\MiniEngine\ImGui\ImGuiLayer.h">
       <Filter>src\MiniEngine\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\MiniEngine\Input.h">
-      <Filter>src\MiniEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MiniEngine\KeyCodes.h">
-      <Filter>src\MiniEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MiniEngine\Layer.h">
-      <Filter>src\MiniEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MiniEngine\LayerStack.h">
-      <Filter>src\MiniEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MiniEngine\Log.h">
-      <Filter>src\MiniEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MiniEngine\MouseButtonCodes.h">
-      <Filter>src\MiniEngine</Filter>
-    </ClInclude>
     <ClInclude Include="src\MiniEngine\Renderer\Buffer.h">
       <Filter>src\MiniEngine\Renderer</Filter>
     </ClInclude>
@@ -112,6 +115,9 @@
       <Filter>src\MiniEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\MiniEngine\Renderer\OrthographicCamera.h">
+      <Filter>src\MiniEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiniEngine\Renderer\OrthographicCameraController.h">
       <Filter>src\MiniEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\MiniEngine\Renderer\RenderCommand.h">
@@ -131,9 +137,6 @@
     </ClInclude>
     <ClInclude Include="src\MiniEngine\Renderer\VertexArray.h">
       <Filter>src\MiniEngine\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MiniEngine\Window.h">
-      <Filter>src\MiniEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1415,8 +1418,17 @@
     <ClCompile Include="src\MGpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\MiniEngine\Application.cpp">
-      <Filter>src\MiniEngine</Filter>
+    <ClCompile Include="src\MiniEngine\Core\Application.cpp">
+      <Filter>src\MiniEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniEngine\Core\Layer.cpp">
+      <Filter>src\MiniEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniEngine\Core\LayerStack.cpp">
+      <Filter>src\MiniEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniEngine\Core\Log.cpp">
+      <Filter>src\MiniEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\MiniEngine\ImGui\ImGuiBuild.cpp">
       <Filter>src\MiniEngine\ImGui</Filter>
@@ -1424,19 +1436,13 @@
     <ClCompile Include="src\MiniEngine\ImGui\ImGuiLayer.cpp">
       <Filter>src\MiniEngine\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\MiniEngine\Layer.cpp">
-      <Filter>src\MiniEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MiniEngine\LayerStack.cpp">
-      <Filter>src\MiniEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MiniEngine\Log.cpp">
-      <Filter>src\MiniEngine</Filter>
-    </ClCompile>
     <ClCompile Include="src\MiniEngine\Renderer\Buffer.cpp">
       <Filter>src\MiniEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\MiniEngine\Renderer\OrthographicCamera.cpp">
+      <Filter>src\MiniEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniEngine\Renderer\OrthographicCameraController.cpp">
       <Filter>src\MiniEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\MiniEngine\Renderer\RenderCommand.cpp">

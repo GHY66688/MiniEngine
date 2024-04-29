@@ -1,9 +1,9 @@
 #pragma once
 
-#include"MiniEngine/Core.h"
+#include"MiniEngine/Core/Core.h"
 #include"MiniEngine/Events/Event.h"
 
-#include "Core/TimeStep.h"
+#include "MiniEngine/Core/TimeStep.h"
 
 namespace MG {
 	class MG_API Layer

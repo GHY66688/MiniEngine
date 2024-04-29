@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MiniEngine/Layer.h"
+#include "MiniEngine/Core/Layer.h"
 
 #include "MiniEngine/Events/ApplicationEvent.h"
 #include "MiniEngine/Events/KeyEvent.h"

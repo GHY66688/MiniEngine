@@ -43,36 +43,37 @@ namespace MG {
 	}
 	void Application::Run()
 	{
-		float time = (float)glfwGetTime();		//platform::GetTime()
-		//TimeStep实际就一个float
-		//当前帧的时间减去上一帧的时间 便是DeltaTime
-		TimeStep timestep = time - m_LastFrameTime;
-		m_LastFrameTime = time;
 
-		//MG_CORE_WARN("Initialized Log!");
-		//MG_CLIENT_TRACE("Hello");
-		while (m_Runing)
-		{
-
-			
-
-			
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
-
-
-			m_ImGuiLayer->Begin();
-			//每一层进行更新
-			for (Layer* layer : m_LayerStack)
+			//MG_CORE_WARN("Initialized Log!");
+			//MG_CLIENT_TRACE("Hello");
+			while (m_Runing)
 			{
-				layer->OnImGuiRender();
+				float time = (float)glfwGetTime();		//platform::GetTime()
+				//TimeStep实际就一个float
+				//当前帧的时间减去上一帧的时间 便是DeltaTime
+				TimeStep timestep = time - m_LastFrameTime;
+				m_LastFrameTime = time;
+
+
+
+				if (!m_Minimized)
+				{
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timestep);
+
+				}
+				//在Release版本中 不会出现ImGuiLayer
+				m_ImGuiLayer->Begin();
+				//每一层进行更新
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnImGuiRender();
+				}
+				m_ImGuiLayer->End();
+
+
+				m_Window->OnUpdate();
 			}
-
-			m_ImGuiLayer->End();
-
-
-			m_Window->OnUpdate();
-		}
 	}
 
 
@@ -82,6 +83,8 @@ namespace MG {
 		//如果事件类型为关闭窗口，则执行OnWindowClose
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+
 
 		//MG_CORE_INFO("{0}", e);
 
@@ -116,5 +119,18 @@ namespace MG {
 	{
 		m_Runing = false;
 		return true;
+	}
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+		return false;
 	}
 }	//end MG

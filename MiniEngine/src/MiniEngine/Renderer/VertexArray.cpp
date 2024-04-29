@@ -9,7 +9,7 @@ namespace MG {
 
 
 
-	VertexArray* VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -20,7 +20,7 @@ namespace MG {
 		}
 		case RendererAPI::API::OpenGL:
 		{
-			return new OpenGLVertexArray();
+			return std::make_shared<OpenGLVertexArray>();
 		}
 		}
 
