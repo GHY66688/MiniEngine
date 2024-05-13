@@ -153,6 +153,7 @@
     <ClInclude Include="src\MiniEngine\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\MiniEngine\Core\TimeStep.h" />
     <ClInclude Include="src\MiniEngine\Core\Window.h" />
+    <ClInclude Include="src\MiniEngine\Debug\Instrumentor.h" />
     <ClInclude Include="src\MiniEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="src\MiniEngine\Events\Event.h" />
     <ClInclude Include="src\MiniEngine\Events\KeyEvent.h" />

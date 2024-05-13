@@ -30,5 +30,8 @@ private:
 	MG::Ref<MG::Shader> m_Shader;
 	MG::Ref<MG::Texture2D> m_Texture;
 
+
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+
+	float startColor = 0.0f;
 };

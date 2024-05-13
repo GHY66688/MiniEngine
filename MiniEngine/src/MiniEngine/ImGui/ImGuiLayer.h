@@ -16,7 +16,7 @@ namespace MG {
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
-		virtual void OnImGuiRender() override;
+		//virtual void OnImGuiRender() override;
 
 		void Begin();
 		void End();

@@ -16,6 +16,8 @@
 
 #include "MiniEngine/Core/Log.h"
 
+#include "MiniEngine/Debug/Instrumentor.h"
+
 
 #ifdef MG_PLATFORM_WINDOWS
 	#include <Windows.h>

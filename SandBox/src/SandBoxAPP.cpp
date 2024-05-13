@@ -43,8 +43,7 @@ public:
 
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		MG::Ref<MG::IndexBuffer> indexBuffer;
-		indexBuffer.reset(MG::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		MG::Ref<MG::IndexBuffer> indexBuffer = MG::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -67,8 +66,7 @@ public:
 			0, 1, 2,
 			0, 2, 3
 		};
-		MG::Ref<MG::IndexBuffer> squareIB;
-		squareIB.reset(MG::IndexBuffer::Create(indices2, 6));
+		MG::Ref<MG::IndexBuffer> squareIB = MG::IndexBuffer::Create(indices2, 6);
 
 		m_SquareVA->SetIndexBuffer(squareIB);
 
